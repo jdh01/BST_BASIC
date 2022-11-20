@@ -36,11 +36,14 @@ bool Search(BstNode* root, int data) {
 
 int main()
 {
-	BstNode* root; //pointer to root node
-	root = NULL; //sets the tree as empty
-	Insert(root, 15);
-	Insert(root, 10);
-	Insert(root, 20);
+	BstNode* root = NULL; //pointer to root node
+	root = Insert(root, 15);
+	root = Insert(root, 10);
+	root = Insert(root, 20);
+	root = Insert(root, 25);
 
-	Search(root, 15);
+	if (Search(root, 15) == true) {
+		std::cout << "Found!\n";
+	}
+	else std::cout << "Not Found\n";
 }
