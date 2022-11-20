@@ -8,8 +8,8 @@ struct BstNode {
 
 BstNode* GetNewNode(int data) {
 	BstNode* newNode = new BstNode();
-	(*newNode).data = data; //or newNode-> = data;
-	(*newNode).left = (*newNode).right = NULL; //intialise left and right to NULL
+	newNode->data = data;
+	newNode->left = newNode->right = NULL; //intialise left and right to NULL
 	return newNode;
 }
 
