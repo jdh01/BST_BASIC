@@ -34,6 +34,31 @@ bool Search(BstNode* root, int data) {
 	else return Search(root->right, data);
 }
 
+int FindMin(BstNode* root)
+{
+	if (root == NULL) {
+		std::cout << "[ERROR] Tree is empty." << std::endl;
+		return -1;
+	}
+	while (root->left != NULL)
+	{
+		root = root->left;
+	}
+	return root->data;
+}
+
+int FindMax(BstNode* root)
+{
+	if (root == NULL) {
+		std::cout << "[ERROR] Tree is empty." << std::endl;
+		return -1;
+	}
+	else if (root->right == NULL) {
+		return root->data;
+	}
+	return FindMax(root->right);
+}
+
 int main()
 {
 	BstNode* root = NULL; //pointer to root node
@@ -41,9 +66,21 @@ int main()
 	root = Insert(root, 10);
 	root = Insert(root, 20);
 	root = Insert(root, 25);
+	root = Insert(root, 8);
+	root = Insert(root, 12);
+	root = Insert(root, 34);
 
-	if (Search(root, 15) == true) {
+	int number;
+	std::cout << "Enter a number: ";
+	std::cin >> number;
+	if (Search(root, number) == true) {
 		std::cout << "Found!\n";
 	}
 	else std::cout << "Not Found\n";
+
+	int max = FindMax(root);
+	int min = FindMin(root);
+
+	std::cout << "The maximum number in the tree is " << max << std::endl;
+	std::cout << "The minimum number in the tree is " << min << std::endl;
 }
