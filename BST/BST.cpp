@@ -58,6 +58,14 @@ int FindMax(BstNode* root)
 	}
 	return FindMax(root->right);
 }
+//Number of edges of longest route from leaf to root
+int FindHeight(BstNode* root)
+{
+	if (root == NULL) return -1;
+	int leftHeight = FindHeight(root->left);
+	int rightHeight= FindHeight(root->right);
+	return leftHeight > rightHeight ? leftHeight+1 : rightHeight+1;
+}
 
 int main()
 {
@@ -83,4 +91,6 @@ int main()
 
 	std::cout << "The maximum number in the tree is " << max << std::endl;
 	std::cout << "The minimum number in the tree is " << min << std::endl;
+
+	std::cout << "The height of the tree is " << FindHeight(root) << std::endl;
 }
