@@ -67,16 +67,25 @@ int FindHeight(BstNode* root)
 	return leftHeight > rightHeight ? leftHeight+1 : rightHeight+1;
 }
 
+bool IsBinarySearchTree(BstNode* root, int minValue, int maxValue)
+{
+	if (root == NULL) return true;
+	if (root->data < minValue && root->data > maxValue
+		&& IsBinarySearchTree(root->left, minValue, root->data)
+		&& IsBinarySearchTree(root->right, root->data, maxValue))
+		return true;
+	else
+		return false;
+}
+
 int main()
 {
 	BstNode* root = NULL; //pointer to root node
-	root = Insert(root, 15);
-	root = Insert(root, 10);
-	root = Insert(root, 20);
-	root = Insert(root, 25);
-	root = Insert(root, 8);
-	root = Insert(root, 12);
-	root = Insert(root, 34);
+	root = Insert(root, 7);
+	root = Insert(root, 4);
+	root = Insert(root, 9);
+	root = Insert(root, 1);
+	root = Insert(root, 6);
 
 	int number;
 	std::cout << "Enter a number: ";
@@ -93,4 +102,11 @@ int main()
 	std::cout << "The minimum number in the tree is " << min << std::endl;
 
 	std::cout << "The height of the tree is " << FindHeight(root) << std::endl;
+
+	if (IsBinarySearchTree(root, min, max))
+	{
+		std::cout << "This is a BST!" << std::endl;
+	}
+	else
+		std::cout << "This is NOT a BST!" << std::endl;
 }
