@@ -78,6 +78,40 @@ bool IsBinarySearchTree(BstNode* root, int minValue, int maxValue)
 		return false;
 }
 
+BstNode* DeleteNode(BstNode* root, int data)
+{
+	if (root == NULL) return root;
+	else if (data < root->data) root->left = DeleteNode(root->left, data);
+	else if (data > root->data) root->right = DeleteNode(root->right, data);
+	else
+	{
+		//Case 1 : No Child
+		if (root->left == NULL && root->right == NULL) {
+			delete root;
+			root = NULL;
+		}
+		//Case 2 : One Child
+		else if (root->left == NULL) {
+			BstNode* temp = root;
+			root = root->right;
+			delete temp;
+		}
+		else if (root->right == NULL) {
+			BstNode* temp = root;
+			root = root->left;
+			delete temp;
+		}
+		//Case 3 : 2 Children
+		else {
+			BstNode* temp = FindMin(root->right);
+			root->data = temp->data;
+			root->right = DeleteNode(root->right, temp->data);
+		}
+		return root;
+	}
+
+}
+
 int main()
 {
 	BstNode* root = NULL; //pointer to root node
