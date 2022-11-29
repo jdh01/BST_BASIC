@@ -34,27 +34,27 @@ bool Search(BstNode* root, int data) {
 	else return Search(root->right, data);
 }
 
-int FindMin(BstNode* root)
+BstNode* FindMin(BstNode* root)
 {
 	if (root == NULL) {
 		std::cout << "[ERROR] Tree is empty." << std::endl;
-		return -1;
+		return root;
 	}
 	while (root->left != NULL)
 	{
 		root = root->left;
 	}
-	return root->data;
+	return root;
 }
 
-int FindMax(BstNode* root)
+BstNode* FindMax(BstNode* root)
 {
 	if (root == NULL) {
 		std::cout << "[ERROR] Tree is empty." << std::endl;
-		return -1;
+		return root;
 	}
 	else if (root->right == NULL) {
-		return root->data;
+		return root;
 	}
 	return FindMax(root->right);
 }
@@ -70,8 +70,9 @@ int FindHeight(BstNode* root)
 bool IsBinarySearchTree(BstNode* root, int minValue, int maxValue)
 {
 	if (root == NULL) return true;
-	if (root->data < minValue && root->data > maxValue
-		&& IsBinarySearchTree(root->left, minValue, root->data)
+	if (root->data > minValue 
+		&& root->data < maxValue 
+		&& IsBinarySearchTree(root->left, minValue, root->data) 
 		&& IsBinarySearchTree(root->right, root->data, maxValue))
 		return true;
 	else
@@ -129,18 +130,22 @@ int main()
 	}
 	else std::cout << "Not Found\n";
 
-	int max = FindMax(root);
-	int min = FindMin(root);
+	BstNode* maxPtr = (FindMax(root));
+	int maxValue = maxPtr->data;
+	BstNode* minPtr = (FindMin(root));
+	int minValue = minPtr->data;
 
-	std::cout << "The maximum number in the tree is " << max << std::endl;
-	std::cout << "The minimum number in the tree is " << min << std::endl;
+	std::cout << "The maximum number in the tree is " << maxValue << std::endl;
+	std::cout << "The minimum number in the tree is " << minValue << std::endl;
 
 	std::cout << "The height of the tree is " << FindHeight(root) << std::endl;
 
-	if (IsBinarySearchTree(root, min, max))
+	if (IsBinarySearchTree(root, minValue, maxValue))
 	{
 		std::cout << "This is a BST!" << std::endl;
 	}
 	else
 		std::cout << "This is NOT a BST!" << std::endl;
+
+	root = DeleteNode(root, 6);
 }
